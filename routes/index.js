@@ -9,7 +9,7 @@ console.log('router is loaded');
 // add a route 
 router.get('/',homeController.home);
 // adding a route to users related urls
-router.use('/users', require('./user'));
+router.use('/user', require('./user'));
 
 // route related to posts
 router.use('/posts', require('./posts'));
