@@ -3,6 +3,13 @@ const app = express();
 const port = 8000;
 const expressLayout = require('express-ejs-layouts');
 const db = require('./config/mongoose');
+const cookeParser = require('cookie-parser');
+
+// setup url encoder for decoding the post data
+app.use(express.urlencoded());
+
+// use cookieparser using middleware
+app.use(cookeParser());
 
 //setting up the static files 
 app.use(express.static('./assets')); 
