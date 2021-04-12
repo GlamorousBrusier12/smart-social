@@ -18,7 +18,7 @@ const sassMiddleWare = require('node-sass-middleware');
 app.use(sassMiddleWare({
     src: './assets/scss',
     dest: './assets/css',
-    debug: true,
+    // debug: true,
     outputStyle: 'extended',
     prefix: '/css'
 }));

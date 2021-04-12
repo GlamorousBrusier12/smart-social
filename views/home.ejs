@@ -2,5 +2,25 @@
     <link rel="stylesheet" href="/css/home.css">
     <h1>this is the home page</h1>
     <p>this is rendered from the views by express</p>
+    <section id="feed-posts">
+            <h1>POSTS</h1>
+            <form action="/posts/create-post" method="post">
+                <textarea name="content" id="post-content" cols="30" rows="5" placeholder="type here..."></textarea>
+                <button type="submit" id="post-submit">Post</button>
+            </form>
+            <div id="posts-display">
+                <ul>
+                    <% for(post  of posts){%>
+                        <li>
+                            <p>
+                                 <%= post.content %>
+                                 <br>
+                                 <small><%= post.user.name %></small>
+                            </p>
+                        </li>    
+                    <%} %>
+                </ul>
+            </div>
+    </section>
     <script src="home.js"></script>
 </div>
