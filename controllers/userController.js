@@ -3,9 +3,6 @@ const User = require('../models/user');
 
 
 module.exports.userProfile = function (req, res) {
-    return res.end('<h1>This is the profile page</h1>');
-}
-module.exports.userHome = function (req, res) {
     return res.render('user', {
         title: 'User'
     });
@@ -44,5 +41,11 @@ module.exports.create = function (req, res) {
     }
 }
 module.exports.createSession = function (req, res) {
-    // TODO later
+    return res.redirect('/');
+}
+
+// logout 
+module.exports.destroySession = function (req, res) {
+    req.logout();
+    return res.redirect('../');    
 }

@@ -4,8 +4,17 @@ const port = 8000;
 const expressLayout = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 const cookeParser = require('cookie-parser');
-
+// require passport (authentication) and express sessions to use (session cookies)
+const passport = require('passport');
+const session = require('express-session');
+const passportLocal = require('./config/local-strategies');
+//  require connect-mongo 
+const mongoDriver = require('connect-mongo');
+// require scss 
+const sassMiddleWare = require('node-sass-middleware');
 // setup url encoder for decoding the post data
+
+
 app.use(express.urlencoded());
 
 // use cookieparser using middleware
@@ -21,12 +30,40 @@ app.set('layout extractScripts', true);
 // inculding the express layout
 app.use(expressLayout);
 
+
 // require the router file by middleware 
-app.use('/',require('./routes'));
 
 // setting the view engine 
 app.set('view engine', 'ejs');
 app.set('views', './views');
+
+
+app.use(session({
+    name: 'smart social',
+    secret: 'rcb',
+    saveUninitialized: false,
+    resave: false,
+    cookie:{
+        maxAge: ( 1000 * 60 * 100 )
+    },
+    store: new mongoDriver({
+        autoRemove: 'disabled',
+        mongooseConnection: db,
+        mongoUrl: 'mongodb://localhost/smart-social-development'
+    }, function (err) {
+        console.log(err);
+    })
+}));
+
+// use the passport js
+app.use(passport.initialize());
+// inititate the session
+app.use(passport.session());
+
+//set user authentication
+app.use(passport.setAuthenticatedUser); 
+
+app.use('/',require('./routes'));
 
 //checking whether the servers is listening to the port 
 app.listen(port, function (err) {
