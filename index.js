@@ -15,6 +15,13 @@ const sassMiddleWare = require('node-sass-middleware');
 // setup url encoder for decoding the post data
 
 
+app.use(sassMiddleWare({
+    src: './assets/scss',
+    dest: './assets/css',
+    debug: true,
+    outputStyle: 'extended',
+    prefix: '/css'
+}));
 app.use(express.urlencoded());
 
 // use cookieparser using middleware

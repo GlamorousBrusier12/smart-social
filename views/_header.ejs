@@ -1,9 +1,9 @@
 <header>
-    <h2>header</h2>
+    <h1 id="website-heading">SMART SOCIAL</h1>
     <ul>
         <% if(locals.user) {%>
         <li>
-            <p><%= user.name %> </p>
+            <a href='/user/profile'><%= user.name %> </a>
             <a href="/user/signout">
                 signout
             </a>
@@ -12,7 +12,8 @@
         <li>
             <a href="/user/signin">
                 signin
-            </a>/
+            </a>
+            <span>/</span>
             <a href="/user/signup">
                 signup
             </a>

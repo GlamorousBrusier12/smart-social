@@ -1,3 +1,15 @@
 <footer>
-    <h2>footer</h2>
+    <div>
+        <i class="far fa-copyright" id="copy-rights-icon"></i>
+        <span>All Rights Reserved</span>
+    </div>
+    <div id="links">
+        <a href="/">home</a>
+        <% if( locals.user ){%>
+            <a href="user/profile"> profile </a>    
+        <%}else {%>
+                <a href="/user/signin">signin</a>    
+                <a href="/user/signup">sign up</a>    
+        <% } %>
+    </div>
 </footer>
