@@ -1,0 +1,25 @@
+header {
+  font-family: sans-serif;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: cornflowerblue;
+  height: 10vh;
+  padding-left: 1%;
+  padding-right: 1%;
+  color: whitesmoke; }
+  header ul {
+    list-style-type: none; }
+    header ul a {
+      color: whitesmoke;
+      text-decoration: none;
+      font-size: larger;
+      padding: 1rem; }
+    header ul li {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: baseline; }
+  header ul:visited {
+    color: whitesmoke; }

@@ -1,0 +1,27 @@
+footer{
+    height: 15vh;
+    background-color:cadetblue;
+    color: whitesmoke;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    font-family: sans-serif;
+    div{
+        padding: 1rem;
+        #copy-rights-icon{
+            color: whitesmoke;
+        }
+    }
+    #links{
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: space-evenly ;
+        a{
+            color: whitesmoke;
+            text-decoration: none;
+        }
+        a:visited{
+            color: whitesmoke;
+        }
+    }
+}
