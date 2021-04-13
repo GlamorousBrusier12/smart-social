@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const Post = require('../models/post');
+const Comment = require('../models/comment');
 
 module.exports.postsPage = function (req ,res) {
     return res.render('posts', {
@@ -18,4 +19,4 @@ module.exports.savePost = function(req, res){
         }
         return res.redirect('back');        
     });
-}
+} 

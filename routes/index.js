@@ -14,6 +14,8 @@ router.use('/user', require('./user'));
 // route related to posts
 router.use('/posts', require('./posts'));
 
+// route related to comments
+router.use('/comment', require('./comments')); 
 
 
 
