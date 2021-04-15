@@ -3,9 +3,26 @@ const User = require('../models/user');
 
 
 module.exports.userProfile = function (req, res) {
-    return res.render('user', {
-        title: 'User'
+    
+    User.findById(req.params.id, function(err, user){
+
+        
+        return res.render('user', {
+            title: 'User',
+            profile_user: user
+        });
     });
+}
+
+module.exports.update = function (req, res) {
+    if(req.user.id == req.params.id){
+        User.findByIdAndUpdate(req.params.id, req.body , function(err, user){
+            console.log(`${user.name} has been updated`);
+            res.redirect('back');
+        } );
+    }else{
+        return res.status(401);
+    }    
 }
 // conncecting to the sign in and sign up page
 module.exports.UserSignIn = function (req, res) {

@@ -1,7 +1,20 @@
 <div id="container">
     <h1>this is <%= title %> page</h1>
     <p>this is rendered from ejs</p>
-    <p>
-        Hi!<%= user.name %>
-    </p>
+    
+    <section id="update-user">
+        <% if(profile_user.id == user.id){ %>
+            <h4>user profile update</h4>
+            <form action="/user/update/<%= profile_user.id %>" method="post">
+                <input type="text" placeholder="<%= user.name %>" name="name" value=<%= profile_user.name %>>
+                <input type="text" placeholder="<%= user.email %>" name="email" value=<%= profile_user.email %> >
+                <button id="update-btn">update</button>
+            </form>
+        <% }else{ %>
+                <p>
+                    <%= profile_user.name %>
+                    <br><%= profile_user.email %>
+                </p>
+        <% } %>
+    </section>
 </div>

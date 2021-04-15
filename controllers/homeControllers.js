@@ -12,13 +12,18 @@ module.exports.home = function (req, res) {
     })
     .exec(function (err, posts) {
             if(err){
-                        console.log('err in finding the Post of the user',err);
-                        return;
-                    }
-            return res.render('home',{
+                console.log('err in finding the Post of the user',err);
+                return;
+            }
+            User.find({}, function (err, users) {
+                
+                return res.render('home',{
                     title: 'Smart Socail | Home',
-                    posts : posts
+                    posts : posts,
+                    all_users: users
                 });
+
+            })
             });
 
     }

@@ -18,5 +18,18 @@
                 </ul>
             </div>
     </section>
+
+    <% if(locals.user) { %>
+        <section id="users-display">
+            <h4>Friends</h4>
+            <ul>
+                <% for(u of all_users){%>
+                    <li>
+                        <a href="user/profile/<%= u.id %>"><%=u.name%></a>
+                    </li>
+                <%} %>
+            </ul>
+        </section>
+    <% } %>
     <script src="home.js"></script>
 </div>

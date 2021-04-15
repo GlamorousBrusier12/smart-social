@@ -5,7 +5,8 @@ const router = express.Router();
 const userCont = require('../controllers/userController.js');
 const { route } = require('./posts.js');
 // creating a route
-router.get('/profile', passport.checkAuthentication,userCont.userProfile);
+router.get('/profile/:id', passport.checkAuthentication,userCont.userProfile);
+router.post('/update/:id', passport.checkAuthentication,userCont.update);
 // redirecting the user to the sign in page
 router.get('/signin',passport.denyAccessUser,userCont.UserSignIn);
 
