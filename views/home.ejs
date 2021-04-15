@@ -13,41 +13,7 @@
             <div id="posts-display">
                 <ul>
                     <% for(post  of posts){%>
-                        <li>
-                            <p>
-                                <% if (locals.user && locals.user.id == post.user.id) { %>
-                                <a href="/posts/delete/<%= post.id %>">x</a>
-                                <% } %> 
-                                 
-                                <%= post.content %>
-
-                                 <br>
-                                 <small><%= post.user.name %></small>
-                                 <div id="comments-section">
-                                    <% if(locals.user){ %>
-                                        <form action="/comment/create" method="post">
-                                            <textarea name="commentContent" id="comment-content" cols="15" rows="3" placeholder="comment here..." required></textarea>
-                                            <input type="hidden" name="post" value="<%= post.id %>" >
-                                            <button type="submit" id="add-comment">Add comment</button>
-                                        </form>
-                                    <% }%>
-                                    <h4>comments</h4>
-                                    <ul>
-                                        <% for(let comment of post.comments){%>
-                                            <li>
-                                                <p>
-                                                    <% if (locals.user && locals.user.id == comment.user.id) { %>
-                                                        <a href="/comment/delete/?cmtid=<%= comment.id %>&postid=<%= post.id %>">x</a>
-                                                    <% } %>
-                                                    <%=comment.content%>
-                                                </p>
-                                                <small><%=comment.user.name %></small>
-                                            </li>    
-                                        <%} %>
-                                    </ul>
-                                 </div>
-                            </p>
-                        </li>    
+                       <%- include('_posts') -%>    
                     <%} %>
                 </ul>
             </div>
