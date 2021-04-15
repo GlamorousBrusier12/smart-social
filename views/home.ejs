@@ -15,7 +15,12 @@
                     <% for(post  of posts){%>
                         <li>
                             <p>
-                                 <%= post.content %>
+                                <% if (locals.user && locals.user.id == post.user.id) { %>
+                                <a href="/posts/delete/<%= post.id %>">x</a>
+                                <% } %> 
+                                 
+                                <%= post.content %>
+
                                  <br>
                                  <small><%= post.user.name %></small>
                                  <div id="comments-section">
@@ -30,7 +35,12 @@
                                     <ul>
                                         <% for(let comment of post.comments){%>
                                             <li>
-                                                <p><%=comment.content%></p>
+                                                <p>
+                                                    <% if (locals.user && locals.user.id == comment.user.id) { %>
+                                                        <a href="/comment/delete/?cmtid=<%= comment.id %>&postid=<%= post.id %>">x</a>
+                                                    <% } %>
+                                                    <%=comment.content%>
+                                                </p>
                                                 <small><%=comment.user.name %></small>
                                             </li>    
                                         <%} %>

@@ -7,5 +7,5 @@ const postsControler = require('../controllers/postsControler');// requiring the
 
 router.get('/',postsControler.postsPage);
 router.post('/create', passport.checkAuthentication,postsControler.savePost);
-
+router.get('/delete/:id',  passport.checkAuthentication, postsControler.deletePost);
 module.exports = router;

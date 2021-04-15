@@ -19,4 +19,25 @@ module.exports.savePost = function(req, res){
         }
         return res.redirect('back');        
     });
+}
+module.exports.deletePost = function (req, res) {
+    Post.findById(req.params.id, function (err, post) {
+        if(err){console.log(` in finding the post :${err}`) }
+        // finding if the post exist
+        if(post){
+            if (post.user == req.user.id) {
+                // removing the post
+                post.remove();
+
+                // removing the comments related to that post
+                Comment.deleteMany({post: req.params.id}, function (err) {
+                    console.log(`error in deleting the comments`);
+                });
+            }
+        }
+        else{
+            console.log(`havent deleted the post`);
+        }
+        return res.redirect('back');
+    });
 } 
