@@ -44,9 +44,9 @@ module.exports.create = function (req, res) {
             if(err){console.log('error in finding the user in DB'); return}
             
             if(!user){
-                User.create(req.body, function(err, user){
-                    if(err){console.log('error in creating the user in DB'); return res.redirect('back');}
-                    console.log(`******created user successfully : ${user.name}******`);
+                User.create(req.body, function(err3, user2){
+                    if(err3){console.log('error in creating the user in DB'); return res.redirect('back');}
+                    console.log(`******created user successfully : ${user2.name}******`);
                     return res.redirect('/user/signin');
                 });
             }
