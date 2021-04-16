@@ -8,36 +8,43 @@ module.exports.postsPage = function (req ,res) {
     });
 }
 
-module.exports.savePost = function(req, res){
-    Post.create({
-        content : req.body.content,
-        user : req.user._id
-    }, function(err, post){
-        if(err){
-            console.log('error is saving the post into the db');
-            return res.redirect('back');
-        }
+// using async
+module.exports.savePost = async function(req, res){
+    try {
+        // using await
+        await Post.create({
+            content : req.body.content,
+            user : req.user._id
+        });
+
         return res.redirect('back');        
-    });
+    }  catch (error) {
+        console.log('Error:', error);
+        return;
+    }
 }
-module.exports.deletePost = function (req, res) {
-    Post.findById(req.params.id, function (err, post) {
-        if(err){console.log(` in finding the post :${err}`) }
-        // finding if the post exist
+module.exports.deletePost = async function (req, res) {
+    try {
+        let post = await Post.findById(req.params.id) 
+        
+            // finding if the post exist
         if(post){
             if (post.user == req.user.id) {
                 // removing the post
                 post.remove();
 
                 // removing the comments related to that post
-                Comment.deleteMany({post: req.params.id}, function (err) {
-                    console.log(`error in deleting the comments`);
-                });
+                // also using the await function without assinging to any varible 
+               await Comment.deleteMany({post: req.params.id});
             }
         }
         else{
             console.log(`havent deleted the post`);
         }
         return res.redirect('back');
-    });
+
+    }  catch (error) {
+        console.log('Error:', error);
+        return;
+    }
 } 

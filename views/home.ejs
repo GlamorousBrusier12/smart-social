@@ -1,7 +1,5 @@
+<link rel="stylesheet" href="/css/home.css">
 <div id="container">
-    <link rel="stylesheet" href="/css/home.css">
-    <h1>this is the home page</h1>
-    <p>this is rendered from the views by express</p>
     <section id="feed-posts">
             <h1>POSTS</h1>
             <% if(locals.user){ %>
@@ -19,17 +17,19 @@
             </div>
     </section>
 
-    <% if(locals.user) { %>
-        <section id="users-display">
-            <h4>Friends</h4>
-            <ul>
-                <% for(u of all_users){%>
-                    <li>
-                        <a href="user/profile/<%= u.id %>"><%=u.name%></a>
-                    </li>
-                <%} %>
-            </ul>
-        </section>
-    <% } %>
+    <section id="friends-section">
+        <% if(locals.user) { %>
+            <section id="users-display">
+                <h4>Friends</h4>
+                <ul>
+                    <% for(u of all_users){%>
+                        <li>
+                            <a href="user/profile/<%= u.id %>"><%=u.name%></a>
+                        </li>
+                    <%} %>
+                </ul>
+            </section>
+        <% } %>
+    </section>
     <script src="home.js"></script>
 </div>

@@ -1,0 +1,9 @@
+#container {
+  display: flex; }
+  #container #feed-posts {
+    width: 75%;
+    padding-right: 1rem; }
+  #container #friends-section {
+    width: 25%;
+    border-left: 1px solid lightgrey;
+    padding-left: 1rem; }

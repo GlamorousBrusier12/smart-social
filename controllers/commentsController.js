@@ -2,36 +2,45 @@ const User = require('../models/user');
 const Comment = require('../models/comment');
 const Posts = require('../models/post');
 
-module.exports.saveComment = function (req, res) {
-    Posts.findById(req.body.post, function (err, post) {
-        if(err){console.log('error in finding the linked post'); return;}
+module.exports.saveComment = async function (req, res) {
+
+    try {
+        
+        let post = await Posts.findById(req.body.post)
+        
         if(post){
-            Comment.create({
+            let comment = await Comment.create({
                 content: req.body.commentContent,
                 user: req.user.id,
                 post: req.body.post
-            }, function(err2, comment){
-                if(err2){console.log('eror in comment creation '+err2); return}
-                post.comments.push(comment);
-                post.save();
             });
+            post.comments.push(comment);
+            post.save();
             return res.redirect('back');
         }
-    });
+    } catch (error) {
+        console.log('Error:', error);    
+    }
+    
 }
 
 // delete comment
-module.exports.deleteComment = function (req, res) {
-    Comment.findById(req.query.cmtid,function (err, comment){
-        if(req.user.id == comment.user){
+module.exports.deleteComment = async function (req, res) {
+
+    try {
+        let postu = await Posts.findById(req.query.postid);
+        let comment = await Comment.findById(req.query.cmtid);
+        if(req.user.id == comment.user || req.user.id == postu.user ){
             comment.remove();
-            Posts.findById(req.query.postid, function (err, post) {
-                post.comments.remove( req.query.cmtid);
-                post.save();
-            })
+            let post = await Posts.findById(req.query.postid);
+            post.comments.remove( req.query.cmtid);
+            post.save();
         }else{
             console.log(`not deleted the comment`);
         }
         return res.redirect('back');
-    });
+    } catch (error) {    
+        console.log('Error:', error);    
+    }
+
 }
