@@ -62,11 +62,14 @@ module.exports.create = async function (req, res) {
     }
 }
 module.exports.createSession = function (req, res) {
+    req.flash('success', 'you have logged in sucessfully');
+    
     return res.redirect('/');
 }
 
 // logout 
 module.exports.destroySession = function (req, res) {
     req.logout();
+    req.flash('success', 'you have logged out!');
     return res.redirect('../');    
 }

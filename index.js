@@ -12,9 +12,9 @@ const passportLocal = require('./config/local-strategies');
 const mongoDriver = require('connect-mongo');
 // require scss 
 const sassMiddleWare = require('node-sass-middleware');
-// setup url encoder for decoding the post data
-
-
+// require the connect-flash library
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
 app.use(sassMiddleWare({
     src: './assets/scss',
     dest: './assets/css',
@@ -22,6 +22,7 @@ app.use(sassMiddleWare({
     outputStyle: 'extended',
     prefix: '/css'
 }));
+// setup url encoder for decoding the post data
 app.use(express.urlencoded());
 
 // use cookieparser using middleware
@@ -64,11 +65,16 @@ app.use(session({
 
 // use the passport js
 app.use(passport.initialize());
-// inititate the session
+// inititate the session cookie
 app.use(passport.session());
 
 //set user authentication
 app.use(passport.setAuthenticatedUser); 
+
+// use flash 
+app.use(flash());
+// use cutsom middleware for setting the flash
+app.use(customMware.setFlash);
 
 app.use('/',require('./routes'));
 

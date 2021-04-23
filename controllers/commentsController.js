@@ -16,9 +16,11 @@ module.exports.saveComment = async function (req, res) {
             });
             post.comments.push(comment);
             post.save();
+            req.flash('success', 'Comment posted!');
             return res.redirect('back');
         }
     } catch (error) {
+        req.flash('error', error);
         console.log('Error:', error);    
     }
     
@@ -34,12 +36,14 @@ module.exports.deleteComment = async function (req, res) {
             comment.remove();
             let post = await Posts.findById(req.query.postid);
             post.comments.remove( req.query.cmtid);
+            req.flash('success', 'Comment deleted!');
             post.save();
         }else{
             console.log(`not deleted the comment`);
         }
         return res.redirect('back');
-    } catch (error) {    
+    } catch (error) {
+        req.flash('error', error);
         console.log('Error:', error);    
     }
 

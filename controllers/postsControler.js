@@ -16,11 +16,11 @@ module.exports.savePost = async function(req, res){
             content : req.body.content,
             user : req.user._id
         });
-
+        req.flash('success', 'Post created!');
         return res.redirect('back');        
     }  catch (error) {
-        console.log('Error:', error);
-        return;
+        req.flash('error',err);
+        return res.redirect('back');        
     }
 }
 module.exports.deletePost = async function (req, res) {
@@ -32,6 +32,7 @@ module.exports.deletePost = async function (req, res) {
             if (post.user == req.user.id) {
                 // removing the post
                 post.remove();
+                req.flash('success', 'Post and respective comments deleted!');
 
                 // removing the comments related to that post
                 // also using the await function without assinging to any varible 
