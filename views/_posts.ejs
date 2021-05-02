@@ -1,7 +1,7 @@
-<li>
+<li id="post-<%= post.id %>" >
     <p>
         <% if (locals.user && locals.user.id == post.user.id) { %>
-        <a href="/posts/delete/<%= post.id %>">x</a>
+        <a href="/posts/delete/<%= post.id %>" class="delete-post-button">x</a>
         <% } %> 
          
         <%= post.content %>
@@ -17,7 +17,7 @@
                 </form>
             <% }%>
             <h4>comments</h4>
-            <ul>
+            <ul id="post-comments-<%=post._id%>">
                 <% for(comment of post.comments){%>
                    
                     <%- include('_comment') -%>

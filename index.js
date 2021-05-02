@@ -14,6 +14,7 @@ const mongoDriver = require('connect-mongo');
 const sassMiddleWare = require('node-sass-middleware');
 // require the connect-flash library
 const flash = require('connect-flash');
+// require the custom middleware
 const customMware = require('./config/middleware');
 app.use(sassMiddleWare({
     src: './assets/scss',

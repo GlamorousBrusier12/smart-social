@@ -62,6 +62,7 @@ module.exports.create = async function (req, res) {
     }
 }
 module.exports.createSession = function (req, res) {
+    // setting the flash message here!
     req.flash('success', 'you have logged in sucessfully');
     
     return res.redirect('/');
@@ -73,3 +74,7 @@ module.exports.destroySession = function (req, res) {
     req.flash('success', 'you have logged out!');
     return res.redirect('../');    
 }
+
+
+// to set up the flash messages you have to write the below statement
+// req.flash('key/type of the flash', content of the flash);

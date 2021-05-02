@@ -3,9 +3,9 @@
     <section id="feed-posts">
             <h1>POSTS</h1>
             <% if(locals.user){ %>
-                <form action="/posts/create" method="post">
+                <form action="/posts/create" method="post" id="post-create-form">
                     <textarea name="content" id="post-content" cols="30" rows="5" placeholder="type here..." required></textarea>
-                    <button type="submit" id="post-submit">Post</button>
+                    <input type="submit" value="Post"  id="post-submit">
                 </form>
             <% }%>
             <div id="posts-display">
