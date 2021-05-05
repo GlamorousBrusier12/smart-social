@@ -17,6 +17,7 @@ module.exports.savePost = async function(req, res){
             user : req.user._id
         });
         if (req.xhr) {
+            post = await post.populate('user','name').execPopulate();
             return res.status(200).json({
                 data:{
                     post: post 
@@ -40,21 +41,21 @@ module.exports.deletePost = async function (req, res) {
             // removing the post
             post.remove();
             
-            
             // removing the comments related to that post
             // also using the await function without assinging to any varible 
             await Comment.deleteMany({post: req.params.id});
             
+            req.flash('success', 'Post and respective comments deleted!');
             //checking the post is xhr
             if(req.xhr){
                 return res.status(200).json({
                     data:{
-                        'post_id' : req.params.id
+                        'post_id' : req.params.id,
+                        posts: post
                     },
                     message: 'post deleted'
                 });
             } 
-            req.flash('success', 'Post and respective comments deleted!');
         }
         
         return res.redirect('back');

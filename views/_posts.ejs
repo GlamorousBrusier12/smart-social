@@ -1,7 +1,7 @@
-<li id="post-<%= post.id %>" >
+<li id="post-<%= post._id %>" >
     <p>
         <% if (locals.user && locals.user.id == post.user.id) { %>
-        <a href="/posts/delete/<%= post.id %>" class="delete-post-button">x</a>
+        <a href="/posts/delete/<%= post._id %>" class="delete-post-button">x</a>
         <% } %> 
          
         <%= post.content %>
@@ -10,12 +10,12 @@
          <small><%= post.user.name %></small>
          <div id="comments-section">
             <% if(locals.user){ %>
-                <form action="/comment/create" method="post">
+                <form action="/comment/create" method="post" id="post-<%= post._id %>-comments-form">
                     <textarea name="commentContent" id="comment-content" cols="15" rows="3" placeholder="comment here..." required></textarea>
-                    <input type="hidden" name="post" value="<%= post.id %>" >
-                    <button type="submit" id="add-comment">Add comment</button>
+                    <input type="hidden" name="post" value="<%= post._id %>" >
+                    <button type="submit" class="add-comment">Add comment</button>
                 </form>
-            <% }%>
+            <% } %>
             <h4>comments</h4>
             <ul id="post-comments-<%=post._id%>">
                 <% for(comment of post.comments){%>

@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Comment = require('../models/comment');
 const Posts = require('../models/post');
+const { response } = require('express');
 
 module.exports.saveComment = async function (req, res) {
 
@@ -16,7 +17,17 @@ module.exports.saveComment = async function (req, res) {
             });
             post.comments.push(comment);
             post.save();
-            req.flash('success', 'Comment posted!');
+            // req.flash('success', 'Comment posted!');
+            if(req.xhr){
+                // populating the user with the usename for the comments
+                comment = await comment.populate('user', 'name').execPopulate();
+                return res.status(200).json({
+                    data:{
+                        comment: comment
+                    },
+                    message: 'comment created'
+                });
+            }
             return res.redirect('back');
         }
     } catch (error) {
@@ -36,8 +47,16 @@ module.exports.deleteComment = async function (req, res) {
             comment.remove();
             let post = await Posts.findById(req.query.postid);
             post.comments.remove( req.query.cmtid);
-            req.flash('success', 'Comment deleted!');
+            // req.flash('success', 'Comment deleted!');
             post.save();
+            if(req.xhr){
+                console.log('xhr');
+                return res.status(200).json({
+                    data: {
+                        cmtid : req.query.cmtid
+                    }
+                });
+            }
         }else{
             console.log(`not deleted the comment`);
         }
