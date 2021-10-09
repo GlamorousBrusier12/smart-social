@@ -1,13 +1,13 @@
 <div id="container">
-    <h1>this is <%= title %> page</h1>
     <p>this is rendered from ejs</p>
-    
+    <img src="<%= user.avatar %>" alt="<%= user.name %> " width="100">
     <section id="update-user">
         <% if(profile_user.id == user.id){ %>
             <h4>user profile update</h4>
-            <form action="/user/update/<%= profile_user.id %>" method="post">
+            <form action="/user/update/<%= profile_user.id %>" enctype="multipart/form-data" method="post">
                 <input type="text" placeholder="<%= user.name %>" name="name" value=<%= profile_user.name %>>
                 <input type="text" placeholder="<%= user.email %>" name="email" value=<%= profile_user.email %> >
+                <input type="file" name="avatar" id="useravatar" placeholder="Profile Picture">
                 <button id="update-btn">update</button>
             </form>
         <% }else{ %>

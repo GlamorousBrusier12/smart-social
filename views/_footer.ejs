@@ -6,7 +6,7 @@
     <div id="links">
         <a href="/">home</a>
         <% if( locals.user ){%>
-            <a href="user/profile"> profile </a>    
+            <a href="/user/profile/<%= user.id %>"> profile </a>    
         <%}else {%>
                 <a href="/user/signin">signin</a>    
                 <a href="/user/signup">sign up</a>    

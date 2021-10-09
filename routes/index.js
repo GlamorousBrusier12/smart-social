@@ -18,7 +18,8 @@ router.use('/posts', require('./posts'));
 router.use('/comment', require('./comments')); 
 
 
-
+// routes related to api
+router.use('/api', require('./api'));
 
 
 
