@@ -17,7 +17,11 @@ module.exports.createSession = async function(req, res){
             json1 = JSON.parse(json1);
             return res.status(200).json({
                 message: 'Logged in sucessfully and here is your token',
+<<<<<<< HEAD
                 token : jwt.sign(json1, 'rcb', {expiresIn: 10000})
+=======
+                token : jwt.sign(json1, 'rcb', {expiresIn: 100000})
+>>>>>>> d7a5ee54c04f8125707bc0a59c6c68219fa4ae2a
             });
         }
     } catch (error) {

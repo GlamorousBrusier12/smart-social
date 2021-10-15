@@ -8,6 +8,7 @@ const cookeParser = require('cookie-parser');
 const passport = require('passport');
 const session = require('express-session');
 const passportLocal = require('./config/local-strategies');
+const passportJWT = require('./config/passport-jwt-strategy');
 //  require connect-mongo 
 const mongoDriver = require('connect-mongo');
 // require scss 
@@ -32,6 +33,9 @@ app.use(cookeParser());
 //setting up the static files 
 app.use(express.static('./assets')); 
 
+// setting uploads folder as static folder and making it available for the browser as well
+app.use('/uploads', express.static(__dirname + '/uploads'));
+
 // extracting the link(CSS) files and script files and placeing them wherever needed
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
@@ -46,7 +50,7 @@ app.use(expressLayout);
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-
+// we use mongo store to store the session cookies
 app.use(session({
     name: 'smart social',
     secret: 'rcb',

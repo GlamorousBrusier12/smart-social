@@ -31,21 +31,24 @@ passport.use(new LocalStrategy({
     
 }));
 
+// serialising is a process where we set the used id to a cookie
+// and de serialising is a process where we use the id present in the cookie 
+// for establishing the user idenity in the controller 
 
-// serializer and de-serializer functions 
+// serializer the user to decide which key is to be kept in the cookies 
 passport.serializeUser(function (user, done) {
     done(null, user.id);  
 });
 
-// deserializer
-passport.deserializeUser(function (id, done ) {
-    User.findById(id, function(err, user){
-        if(err){
-            console.log('Error in finding the user');
-            done(err);
-        }
+// deserializer the user using the id present in the cookie
+passport.deserializeUser(async function (id, done ) {
+    try {
+        let user = await User.findById(id);
         done(null, user);
-    });
+    } catch (error) {
+        console.log('error in finding the user');
+        done(error);
+    }
 });
 
 // check user authentication 
@@ -64,6 +67,7 @@ passport.checkAuthentication =  function (req, res, next) {
 // set authenticated user
 passport.setAuthenticatedUser = function (req, res, next) {
  if(req.isAuthenticated()){
+     // req.user is already provided by the passport js we just need to use that
      res.locals.user = req.user;
  }   
  next();
