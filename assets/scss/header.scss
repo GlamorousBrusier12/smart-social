@@ -28,4 +28,12 @@ header{
     ul:visited{
         color: whitesmoke;
     }
+    h1{
+        a{
+            color: whitesmoke;
+            text-decoration: none;
+            font-size:larger;
+            // padding: 1rem;
+        }
+    }
 }

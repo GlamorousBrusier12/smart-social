@@ -77,7 +77,7 @@ module.exports.create = async function (req, res) {
         }else{
             let user = await User.findOne({email: req.body.email });
             if(!user){
-                let user2 = User.create(req.body);
+                let user2 = await User.create(req.body);
                 console.log(`******created user successfully : ${user2.name}******`);
             }
             return res.redirect('/user/signin');

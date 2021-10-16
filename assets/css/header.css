@@ -23,3 +23,7 @@ header {
       align-items: baseline; }
   header ul:visited {
     color: whitesmoke; }
+  header h1 a {
+    color: whitesmoke;
+    text-decoration: none;
+    font-size: larger; }
