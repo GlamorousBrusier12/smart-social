@@ -2,7 +2,7 @@ const User = require('../models/user');
 const Comment = require('../models/comment');
 const Posts = require('../models/post');
 const { response } = require('express');
-
+const commentsMailer = require('../mailer/comments_mailer');
 module.exports.saveComment = async function (req, res) {
 
     try {
@@ -18,9 +18,18 @@ module.exports.saveComment = async function (req, res) {
             post.comments.push(comment);
             post.save();
             // req.flash('success', 'Comment posted!');
+            // populating the user with the usename for the comments
+            
+
+            comment = await comment.populate('user', 'name email').execPopulate();
+            // after the comment was created succefully we send the mail to the resp user 
+            // using
+            commentsMailer.newComment(comment);
+            
+            
             if(req.xhr){
-                // populating the user with the usename for the comments
-                comment = await comment.populate('user', 'name').execPopulate();
+            
+            
                 return res.status(200).json({
                     data:{
                         comment: comment
