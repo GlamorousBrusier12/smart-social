@@ -7,7 +7,7 @@ exports.newComment = function(comment){
 
     // we are using sendmail() method to send the mail to the resp user
     nodeMailer.transporter.sendMail({
-        from:'pandurebelsachin18@gmail.com',
+        from:'viratn14@gmail.com',
         to: comment.user.email,
         subject: "New comment is published",
         html: htmlTemplate
