@@ -1,29 +1,45 @@
-<li id="post-<%= post._id %>" >
-    <p>
-        <% if (locals.user && locals.user.id == post.user.id) { %>
-        <a href="/posts/delete/<%= post._id %>" class="delete-post-button">x</a>
-        <% } %> 
-         
-        <%= post.content %>
+<li id="post-<%= post._id %>">
+  <% if (locals.user && locals.user.id == post.user.id) { %>
+  <a href="/posts/delete/<%= post._id %>" class="delete-post-button">x</a>
+  <% } %> <%= post.content %>
 
-         <br>
-         <small><%= post.user.name %></small>
-         <div id="comments-section">
-            <% if(locals.user){ %>
-                <form action="/comment/create" method="post" id="post-<%= post._id %>-comments-form">
-                    <textarea name="commentContent" id="comment-content" cols="15" rows="3" placeholder="comment here..." required></textarea>
-                    <input type="hidden" name="post" value="<%= post._id %>" >
-                    <button type="submit" class="add-comment">Add comment</button>
-                </form>
-            <% } %>
-            <h4>comments</h4>
-            <ul id="post-comments-<%=post._id%>">
-                <% for(comment of post.comments){%>
-                   
-                    <%- include('_comment') -%>
+  <br />
+  <small><%= post.user.name %></small>
+  <br />
+  <small>
+    <% if(locals.user) {%>
+    <a
+      class="toggle-like-button"
+      data-likes="<%= post.likes.length %>"
+      href="/likes/toggle?id=<%= post._id %>&type=Post"
+    >
+      <%= post.likes.length %> Likes
+    </a>
+    <% }else{ %> <%= post.likes.length %>Likes <% } %>
+  </small>
 
-                <%} %>
-            </ul>
-         </div>
-    </p>
+  <div id="comments-section">
+    <% if(locals.user){ %>
+    <form
+      action="/comment/create"
+      method="post"
+      id="post-<%= post._id %>-comments-form"
+    >
+      <textarea
+        name="commentContent"
+        id="comment-content"
+        cols="15"
+        rows="3"
+        placeholder="comment here..."
+        required
+      ></textarea>
+      <input type="hidden" name="post" value="<%= post._id %>" />
+      <button type="submit" class="add-comment">Add comment</button>
+    </form>
+    <% } %>
+    <h4>comments</h4>
+    <ul id="post-comments-<%=post._id%>">
+      <% for(comment of post.comments){%> <%- include('_comment') -%> <%} %>
+    </ul>
+  </div>
 </li>

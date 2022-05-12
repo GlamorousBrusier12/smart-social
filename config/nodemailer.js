@@ -13,7 +13,7 @@ let transporter = nodemailer.createTransport({
     secure:false,
     auth:{
         user: "viratn14",
-        pass: "kumarnaveen10"
+        pass: 'T[:,/~>B"6t.bH$?' //eslint-ignore-line
     }
 });
 

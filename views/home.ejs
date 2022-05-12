@@ -1,36 +1,48 @@
-<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/home.css" />
 <div id="container">
-    <section id="feed-posts">
-            <h1>POSTS</h1>
-            <% if(locals.user){ %>
-                <form action="/posts/create" method="post" id="post-create-form">
-                    <textarea name="content" id="post-content" cols="30" rows="5" placeholder="type here..." required></textarea>
-                    <input type="submit" value="Post"  id="post-submit">
-                </form>
-            <% }%>
-            <div id="posts-display">
-                <ul>
-                    <% for(post  of posts){%>
-                       <%- include('_posts') -%>    
-                    <%} %>
-                </ul>
-            </div>
-    </section>
+  <section id="feed-posts">
+    <h1>POSTS</h1>
+    <% if(locals.user){ %>
+    <form action="/posts/create" method="post" id="post-create-form">
+      <textarea
+        name="content"
+        id="post-content"
+        cols="30"
+        rows="5"
+        placeholder="type here..."
+        required
+      ></textarea>
+      <input type="submit" value="Post" id="post-submit" />
+    </form>
+    <% }%>
+    <div id="posts-display">
+      <ul>
+        <% for(post of posts){%> <%- include('_posts') -%> <%} %>
+      </ul>
+    </div>
+  </section>
 
-    <section id="friends-section">
-        <% if(locals.user) { %>
-            <section id="users-display">
-                <h4>Friends</h4>
-                <ul>
-                    <% for(u of all_users){%>
-                        <li>
-                            <a href="user/profile/<%= u.id %>"><%=u.name%></a>
-                        </li>
-                    <%} %>
-                </ul>
-            </section>
-        <% } %>
+  <section id="friends-section">
+    <% if(locals.user) { %>
+    <section id="users-display">
+      <h4>Friends</h4>
+      <ul>
+        <% for(u of all_users){%>
+        <li>
+          <a href="user/profile/<%= u.id %>"><%=u.name%></a>
+        </li>
+        <%} %>
+      </ul>
     </section>
+    <% } %>
+  </section>
 </div>
 <script src="/js/home_posts.js"></script>
 <script src="/js/home_comments.js"></script>
+<script src="/js/toggleLikes.js"></script>
+<script>
+  $(".toggle-like-button").each(function () {
+    let self = this;
+    let toggleLike = new ToggleLike(self);
+  });
+</script>

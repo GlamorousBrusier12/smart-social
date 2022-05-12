@@ -44,7 +44,7 @@ userSchema.statics.avatarpath = AVATAR_PATH;
 
 
 //creating the users collection (model) using mongoose
-const Users = mongoose.model('Users', userSchema);
+const Users = mongoose.model('User', userSchema);
 
 
 
